@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@material-ui/data-grid": "^4.0.0-alpha.25",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "bootswatch": "^4.6.0",
+    "react": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "reactstrap": "^8.9.0"
+  }
+}

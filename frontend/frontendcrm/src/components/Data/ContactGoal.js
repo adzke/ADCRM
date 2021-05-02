@@ -1,5 +1,4 @@
 import React from 'react'
-import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
@@ -8,40 +7,38 @@ import PieChart from '../Charts/PieChart'
 
 import Typography from '@material-ui/core/Typography';
 
-const employeecount = 15
-const targetvalue = 25
 
-
-function ContactGoal() {
+function ContactGoal(props) {
     return (
         <div>
               <Card style={{borderRadius: 20,}}>
                 <CardContent >
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography variant="h5" gutterBottom>
-                        Contact Goal
+                       {props.goaltitle}
                     </Typography>
                     <MoreVertIcon font='large'/>
                     </div>
                     <Divider/>
                     <Typography variant="subtitle1" gutterBottom>
-                     Contacts {employeecount}/{targetvalue}
+                    {props.subtitle} {props.currentvalue}/{props.targetvalue}
                     </Typography>
 
                     
-                   
-                    <PieChart employeecount={employeecount} targetvalue={targetvalue}/>
+                   <div>
+                    <PieChart employeecount={props.currentvalue} targetvalue={props.targetvalue}/>
                     
+                    </div>
                 </CardContent>
                 <Divider/>
                 <CardContent>
                 <Typography variant="h5" gutterBottom>
-                        Detail Breakdown
+                       {props.breakdown}
                     </Typography>
 
                     
                     <Typography variant="subtitle1" gutterBottom>
-                     Apple Currently has the highest number of contacts.
+                    {props.buttontitle}
                     </Typography>
 
                 </CardContent>

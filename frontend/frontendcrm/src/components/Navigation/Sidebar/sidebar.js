@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: '#313B2F',
   },
   drawerHeader: {
     display: 'flex',
@@ -64,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
   content: {
+    
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
@@ -80,8 +82,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
   },
   linkstyles: {
-    color: '#646464',
+    color: '#FFFFFF',
     textDecoration: 'none'
+  },
+  linkicons: {
+    color: '#FFFFFF',
   }
 }));
 
@@ -115,7 +120,7 @@ export default function PersistentDrawerLeft(props) {
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
+            <MenuIcon  />
           </IconButton>
           <Typography variant="h6" noWrap>
             AD CRM
@@ -140,7 +145,7 @@ export default function PersistentDrawerLeft(props) {
         <List>
           
             <Link className={classes.linkstyles}to='/'><ListItem button onClick={handleDrawerClose}>
-              <ListItemIcon><DashboardIcon/></ListItemIcon>
+              <ListItemIcon><DashboardIcon className={classes.linkicons}/></ListItemIcon>
               <ListItemText>Dashboard</ListItemText>
             </ListItem></Link>
           
@@ -149,7 +154,7 @@ export default function PersistentDrawerLeft(props) {
         <List>
           
           <Link className={classes.linkstyles}to='/contacts'><ListItem button onClick={handleDrawerClose}>
-            <ListItemIcon><PeopleIcon/></ListItemIcon>
+            <ListItemIcon><PeopleIcon className={classes.linkicons}/></ListItemIcon>
             <ListItemText>Contacts</ListItemText>
           </ListItem></Link>
         

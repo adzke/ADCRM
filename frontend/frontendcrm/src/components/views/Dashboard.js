@@ -64,18 +64,7 @@ function Dashboard() {
                     <Grid item xs={4}>
                         <ContactGoal/>
                     </Grid>
-                    <Grid item xs={4}>
-                        <ContactGoal/>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <ContactGoal/>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <JobsTable />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <JobsTableCompleted />
-                    </Grid>
+                    
             </Grid>
         </Fragment>
     )

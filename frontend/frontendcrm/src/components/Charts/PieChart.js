@@ -10,8 +10,7 @@ function PieChart(props) {
     const data2 = targetpercent - employeepercent
     return (
         <div>
-            {console.log(employeepercent)}
-            {console.log(targetpercent)}
+          
           <Doughnut 
             
             options={{

@@ -10,10 +10,11 @@ import IconButton from '@material-ui/core/IconButton';
 
 function ContactGoal(props) {
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    
   };
 
   const handleClose = () => {
@@ -46,7 +47,7 @@ function ContactGoal(props) {
                     
                    <div>
                     <PieChart employeecount={props.currentvalue} targetvalue={props.targetvalue}/>
-                    <SettingsPop id={id} open={open} anchorEl={anchorEl} handleClose={handleClose} targetvalue={props.targetvalue} handleChange={handleChange}/>
+                    <SettingsPop id={id} open={open} anchorEl={anchorEl} handleClose={handleClose} targetvalue={props.targetvalue} handleChange={handleChange} title="Select target Value"/>
                     
                     </div>
                 </CardContent>

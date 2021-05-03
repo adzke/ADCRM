@@ -15,10 +15,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import { useDispatch, useSelector } from 'react-redux'
+import SettingsPop from '../../Popover/SettingsPop'
 import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import Avatar from '@material-ui/core/Avatar';
 
 import { Link } from 'react-router-dom'
 const drawerWidth = 240;
@@ -26,6 +27,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    flexGrow: 1,
   },
   appBar: {
     backgroundColor: '#313B2F',
@@ -87,14 +89,18 @@ const useStyles = makeStyles((theme) => ({
   },
   linkicons: {
     color: '#FFFFFF',
-  }
+  },
+  title: {
+    flexGrow: 1,
+  },
 }));
 
 export default function PersistentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const username = useSelector(state => state.auth.user.username)
+  
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -103,6 +109,24 @@ export default function PersistentDrawerLeft(props) {
     setOpen(false);
   };
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleChange = (event, newValue) => {
+   
+   
+  }
+
+
+  const openpop = Boolean(anchorEl);
+  const id = openpop ? 'simple-popover' : undefined;
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -112,7 +136,7 @@ export default function PersistentDrawerLeft(props) {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
+        <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -122,10 +146,17 @@ export default function PersistentDrawerLeft(props) {
           >
             <MenuIcon  />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap className={classes.title}>
             AD CRM
           </Typography>
+        
+          <IconButton >
+         <Avatar onClick={handleClick} aria-describedby={id}>{username.toUpperCase().slice(0,1)}</Avatar>
+         <SettingsPop id={id} open={openpop} anchorEl={anchorEl} handleClose={handlePopClose} title={`Username: ${username}`}/>
+        </IconButton>
+       
         </Toolbar>
+        
       </AppBar>
       <Drawer
         className={classes.drawer}

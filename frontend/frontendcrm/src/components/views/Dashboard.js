@@ -36,7 +36,7 @@ function Dashboard() {
     const employeecount = 15
 
 
-
+  const username = useSelector(state => state.auth.user.username)
   const employees = useSelector(state => state.employees.employees)
   const contactcount = employees.length
   const employeecompanies = employees.map((row) => (
@@ -73,7 +73,7 @@ function Dashboard() {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                     <Typography variant="h5" gutterBottom>
-                    Good Morning, Admin
+                    Good Morning, {username}
                     </Typography>
                    
                     

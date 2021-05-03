@@ -164,7 +164,7 @@ export default function EmployeeTable(props) {
                      
                    <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
                    
-                   <Search searchresults={searchResultsChange} value={searchresults}/>
+                   <Search searchresults={searchResultsChange} value={searchresults} title={"Search Contacts..."}/>
                    <div style={{flex: 'flex-end', marginLeft: 50}}>
                    <IconButton className={classes.iconButton}><AddIcon fontSize='large' onClick={handleClickOpen}/></IconButton>
                     
@@ -172,7 +172,6 @@ export default function EmployeeTable(props) {
                    </Toolbar>
                
                 
-                {(formstatus) ?  <ContactForm compact={compact}/> : (compact) ? <EmployeeCardTable/> :
                 <Table className={classes.table} aria-label="simple table">
                     
                     <TableHead>
@@ -237,7 +236,7 @@ export default function EmployeeTable(props) {
                               
                     </TableBody>
                 </Table>
-                }
+                
 
                         <TablePagination
                           rowsPerPageOptions={[5, 10, 25]}

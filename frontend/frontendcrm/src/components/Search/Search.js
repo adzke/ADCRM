@@ -87,7 +87,7 @@ export default function Search(props) {
       
           <OutlinedInput
             id="outlined-adornment-password"
-            placeholder='Search Contact...'
+            placeholder={props.title}
             value={props.value}
             onChange={props.searchresults}
             className={classes.outlinedInput}

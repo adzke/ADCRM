@@ -149,7 +149,7 @@ export default function CreateContactForm(props) {
          
         <TextField
           id="outlined-full-width"
-          label="Employee Name"
+          label="Company Name"
           defaultValue={employee_name}
           style={{ margin: 8 }}
           helperText="Please enter employee first and last name."

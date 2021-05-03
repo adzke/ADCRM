@@ -37,6 +37,8 @@ export class Alerts extends Component {
             if (message.putEmployee) alert.success(message.putEmployee);
             if (message.loadUser) alert.error(message.loadUser);
             if (message.deleteEmployee) alert.error(message.deleteEmployee);
+            if (message.putCompany) alert.success(message.putCompany);
+
 
         }
 

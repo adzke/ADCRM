@@ -15,11 +15,12 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import SettingsPop from '../../Popover/SettingsPop'
 import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Avatar from '@material-ui/core/Avatar';
+import BusinessIcon from '@material-ui/icons/Business';
 
 import { Link } from 'react-router-dom'
 const drawerWidth = 240;
@@ -187,6 +188,15 @@ export default function PersistentDrawerLeft(props) {
           <Link className={classes.linkstyles}to='/contacts'><ListItem button onClick={handleDrawerClose}>
             <ListItemIcon><PeopleIcon className={classes.linkicons}/></ListItemIcon>
             <ListItemText>Contacts</ListItemText>
+          </ListItem></Link>
+        
+      </List>
+        <Divider />
+        <List>
+          
+          <Link className={classes.linkstyles}to='/companies'><ListItem button onClick={handleDrawerClose}>
+            <ListItemIcon><BusinessIcon className={classes.linkicons}/></ListItemIcon>
+            <ListItemText>Companies</ListItemText>
           </ListItem></Link>
         
       </List>

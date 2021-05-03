@@ -39,10 +39,22 @@ function Dashboard() {
 
   const employees = useSelector(state => state.employees.employees)
   const contactcount = employees.length
+  const employeecompanies = employees.map((row) => (
+    row.company_name
+  ));
   const [goaltitle, setGoalTitle] = React.useState('Expanding Contacts');
   const [subtitle, setGoalSubTitle] = React.useState('Contacts');
   const [targetvalue, setTargetValue] = React.useState(50);
+  const targetpercent = contactcount / targetvalue * 100
 
+    const HandleSortCompany = (arr) => {
+      return arr.sort((a,b) =>
+      arr.filter(v => v===a).length
+    - arr.filter(v => v===b).length
+    ).pop();
+
+    }
+  const companywithmostjobs = HandleSortCompany(employeecompanies)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -57,6 +69,7 @@ function Dashboard() {
     
     return (
         <Fragment className={classes.root}>
+          
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                     <Typography variant="h5" gutterBottom>
@@ -70,11 +83,11 @@ function Dashboard() {
                     </Typography>
                     </Grid>
                    
-                    <Grid item xs={3}>
+                    <Grid item xs={12} md={3}>
                         <TotalContacts title={"Contacts"} value={contactcount} secondarytext={"Returns a count of contacts in database."} displayicon={PeopleIcon}/>
                     </Grid>
-                    <Grid item xs={3}>
-                        <TotalContacts title={"Company with Highest Contacts"} value={'Apple'} secondarytext={"Returns a count of contacts in database."} displayicon={BusinessIcon}/>
+                    <Grid item xs={12} md={3}>
+                        <TotalContacts title={"Company with most contacts"} value={companywithmostjobs} secondarytext={"Returns list of company with the most contacts."} displayicon={BusinessIcon}/>
                     </Grid>
                    </Grid> 
                     
@@ -86,8 +99,9 @@ function Dashboard() {
                     </Typography>
                   
                     </Grid>
-                  <Grid item xs={3}>
-                  <ContactGoal goaltitle={goaltitle} subtitle={subtitle} targetvalue={targetvalue} currentvalue={contactcount} breakdown={"Current Goal"} buttontitle={"The current goal is to acheive 50 contacts."}/>
+                  <Grid item xs={12} md={3}>
+                 
+                  <ContactGoal SetTargetValue={setTargetValue} goaltitle={goaltitle} subtitle={subtitle} targetvalue={targetvalue} currentvalue={contactcount} breakdown={targetpercent} buttontitle={"The current goal is to acheive 50 contacts."}/>
                     </Grid>
 
                     </Grid>

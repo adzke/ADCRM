@@ -1,13 +1,19 @@
 import React from 'react'
 import { Doughnut } from 'react-chartjs-2';
+import ContactGoal from '../Data/ContactGoal';
 
 
 function PieChart(props) {
-
+    
+    const employeepercent = props.employeecount/100
+    const targetpercent = props.targetvalue/100
+    const data2 = targetpercent - employeepercent
     return (
         <div>
+            {console.log(employeepercent)}
+            {console.log(targetpercent)}
           <Doughnut 
-          
+            
             options={{
                 maintainAspectRatio: false,
                 cutoutPercentage: 85,
@@ -23,18 +29,19 @@ function PieChart(props) {
                     }
                 }
             }}
+            
             data={{
                 
                 datasets: [{
                    
-                    data: [props.employeecount, props.targetvalue],
+                    data: [employeepercent, data2],
                     backgroundColor: [
                     'rgba(76, 254, 133)',
                     
                 ],
             }]
             }}
-
+            
             
            />  
         </div>

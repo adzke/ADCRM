@@ -22,6 +22,7 @@ export class Alerts extends Component {
             if (error.msg.employee_email) alert.error(`Email: ${error.msg.employee_email.join()}`);
             if (error.msg.employee_mobile_number) alert.error(`Mobile: ${error.msg.employee_mobile_number.join()}`);
             if (error.msg.employee_work_number) alert.error(`Work: ${error.msg.employee_work_number.join()}`);
+            if (error.msg.gender) alert.error(`Gender: ${error.msg.gender.join()}`);
 
 
             

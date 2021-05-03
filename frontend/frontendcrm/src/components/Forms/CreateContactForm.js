@@ -71,7 +71,7 @@ export default function CreateContactForm(props) {
     const [notes, setNotes ] = React.useState('');
     const [isactive, setActive] = React.useState(true);
     const [relationshipstatus, setRelationshipStatus] = React.useState('');
-    const [gender, setGender] = React.useState();
+    const [gender, setGender] = React.useState('');
    
 
   

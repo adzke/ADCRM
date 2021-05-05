@@ -1,5 +1,5 @@
 // React 
-import React, {Fragment } from 'react';
+import React, {Fragment, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -17,17 +17,16 @@ import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-
-import { formEmployeeUpdate } from '../../redux/actions/employees'
-
+import { companiesCreateOpen, companyID, companyDetailOpen } from '../../redux/actions/companies'
 import TablePagination from '@material-ui/core/TablePagination';
+import './Search.css'
+import Search from '../Search/Search'
+import AddIcon from '@material-ui/icons/Add';
+import CompanyDialog from '../Forms/CompanyDialog';
+import CompanyDetailDialog from '../Forms/CompanyDetailDialog';
 import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';import {
-  Link
-} from "react-router-dom";
 
-;const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
@@ -48,30 +47,32 @@ import SearchIcon from '@material-ui/icons/Search';import {
       color: '#58555A',
   },
   root: {
+    marginTop: 10,
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
     width: 400,
+    borderRadius: 20,
   },
   input: {
     padding: 10,
-    outlineWidth: 10,
-    outlineColor: '#FF0005',
     marginLeft: theme.spacing(1),
     flex: 1,
+    
+    
   },
-  iconButton: {
-    padding: 10,
-  },
+  
   divider: {
     height: 28,
     margin: 4,
   },
   searchField: {
-    borderRadius: 20,
-    margin: 10,
     borderColor: '#FF0005',
+    backgroundColour: '#FF0005',
+    margin: 5,
+    borderRadius: 20,
     marginTop: 20,
+    
   }
 
 }));
@@ -79,41 +80,20 @@ import SearchIcon from '@material-ui/icons/Search';import {
 
 
 
-export default function JobsTable() {
+export default function JobsTable(props) {
 
 
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const employees = useSelector(state => state.employees.employees)
-  const jobs = useSelector(state => state.jobs.jobs)
-  const formstatus = useSelector(state => state.employees.open)
-  const [value, setValue] = React.useState(0);
-  const [compact, setCompact] = React.useState(false);
-  const messages = useSelector(state => state.messages.postEmployees)
+  const projects = useSelector(state => state.jobs.jobs)
+  const formstatus = useSelector(state => state.companies.detailopen)
+  const createopen = useSelector(state => state.companies.createopen)
   const [page, setPage] = React.useState(0);
   const [searchresults, setSearchResults] = React.useState('');
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, employees.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, projects.length - page * rowsPerPage);
 
-  const handleFormSetup = (event) => {
-    dispatch(formEmployeeUpdate(true))
-    
-  }
-
-  const handleFormSetupFalse = (event) => {
-    dispatch(formEmployeeUpdate(false))
-    
-  }
-  const handleCompact = (event) => {
-    setCompact(!compact)
-    
-  }
-
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -123,40 +103,73 @@ export default function JobsTable() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-    
+  
+  const handleClickOpen = () => {
+    dispatch(companiesCreateOpen(true))
+    };
+
+  const handleOpen = () => {
+    dispatch(companyDetailOpen(true))
+
+    };
+  
+  const handleClose = () => {
+      dispatch(companiesCreateOpen(false))
+      
+    };
+  const handleDialogClose = () => {
+    dispatch(companyDetailOpen(false))
+   
+      
+    };
+
+  
+  const detailViewOpen = (id) => {
+    dispatch(companyID(id))
+    handleOpen();
+
+  }
+
   const searchResultsChange = (event) => {
     setSearchResults(event.target.value.toLowerCase())
    
   }
-  
+
+
+
+
+
   
 
   return (
     <Fragment>
-       
+      <CompanyDetailDialog
+      closeLoginDialog={handleDialogClose}
+      stateopen={formstatus}
+      />
+      <CompanyDialog
+      closeLoginDialog={handleClose}
+      stateopen={createopen}/>
+
+      
+     
              
                      
            
-        
+               
                 <TableContainer component={Paper} className={classes.tablecontainerspace}>
 
-                <Toolbar>
-                    <Paper className={classes.searchField}>
-                    <IconButton className={classes.iconButton} aria-label="menu">
-                      <SearchIcon/>
-                    </IconButton>
-
-                    <InputBase
-                      className={classes.input}
-                      placeholder="Search contacts"
-                      inputProps={{ 'aria-label': 'search google maps' }}
-                      onChange={searchResultsChange}
-                    />
-                    </Paper>
+          
+                     
+                   <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
+                   
+                   <Search searchresults={searchResultsChange} value={searchresults} title={"Search Companies..."}/>
+                   <div style={{flex: 'flex-end', marginLeft: 50}}>
+                   <IconButton className={classes.iconButton}><AddIcon fontSize='large' onClick={handleClickOpen}/></IconButton>
                     
-                
-      
-                </Toolbar>
+                    </div>
+                   </Toolbar>
+               
                 
                
                 <Table className={classes.table} aria-label="simple table">
@@ -164,35 +177,36 @@ export default function JobsTable() {
                     <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
-                        <TableCell align="right">Company</TableCell>
                         <TableCell align="right">Value</TableCell>
-                        <TableCell align="right">Due Date</TableCell>
+                        <TableCell align="right">Employee</TableCell>
                         <TableCell align="right">Status</TableCell>
+
                         <TableCell align="right">Actions</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
                       
                         
-                    {jobs
-                    .filter(row => row.job_status.toLowerCase() != 'completed')
-                    .filter(row => row.job_name.toLowerCase().includes(searchresults))
+                    {projects
+                    .filter(company => company.company_name.toLowerCase().includes(searchresults))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                     
                         
-                        <TableRow key={row.job_name}>
+                        <TableRow key={row.id}>
         
                         <TableCell component="th" scope="row">
+                          
                         <Box display="flex" flexDirection="row">
                                 <Box p={1} >
-                                <Avatar className={classes.orange}>{row.employee_name.slice(0,1)}</Avatar>
+                                <Avatar className={classes.orange}>{row.job_name.slice(0,1)}</Avatar>
                                 </Box>
                             
                                 <Box p={1} >
+                                  
                                 <Typography className={classes.title} color="inherit" variant="h6" component="div"> {row.job_name}</Typography>
-                                <Typography className={classes.title} color="inherit" variant="body2" component="div">
-                                        {row.employee_name}
+                                <Typography className={classes.title} color="inherit" variant="body2" component="div" >
+                                        {row.company_name}
                                         </Typography>
                                 </Box>
                                 
@@ -203,12 +217,13 @@ export default function JobsTable() {
                             
                         </TableCell>
                         
-                        <TableCell align="right">{row.company_name}</TableCell>
-                        <TableCell align="right">{row.job_value.toFixed(2)}</TableCell>
-                        <TableCell align="right">{row.job_due_date}</TableCell>
-                        <TableCell align="right">{row.job_status}</TableCell>
+                        <TableCell align="right">{row.job_value}</TableCell>
+                        <TableCell align="right">{row.employee_name}</TableCell>
+
+                        <TableCell align="right" style={{color: "black" }}><span style={{borderRadius: 20, backgroundColor: (row.job_status == "In Progress") ? "#F51400" : (row.job_status == "Completed") ? "#00F56D" : '#F5E600', padding: 15}} >{row.job_status}</span></TableCell>
                         
-                        <TableCell align="right"><Link to={`/contacts/${row.id}`}><Button><EditIcon  className={classes.editicon} /></Button></Link></TableCell>
+                        
+                        <TableCell align="right"><Button onClick={() => detailViewOpen(row.id)}><EditIcon  className={classes.editicon} /></Button></TableCell>
                         </TableRow>
                        
                        
@@ -227,7 +242,7 @@ export default function JobsTable() {
                         <TablePagination
                           rowsPerPageOptions={[5, 10, 25]}
                           component="div"
-                          count={employees.length}
+                          count={projects.length}
                           rowsPerPage={rowsPerPage}
                           page={page}
                           onChangePage={handleChangePage}

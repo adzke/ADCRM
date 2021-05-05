@@ -21,6 +21,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Avatar from '@material-ui/core/Avatar';
 import BusinessIcon from '@material-ui/icons/Business';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 
 import { Link } from 'react-router-dom'
 const drawerWidth = 240;
@@ -197,6 +198,15 @@ export default function PersistentDrawerLeft(props) {
           <Link className={classes.linkstyles}to='/companies'><ListItem button onClick={handleDrawerClose}>
             <ListItemIcon><BusinessIcon className={classes.linkicons}/></ListItemIcon>
             <ListItemText>Companies</ListItemText>
+          </ListItem></Link>
+        
+      </List>
+        <Divider />
+        <List>
+          
+          <Link className={classes.linkstyles}to='/projects'><ListItem button onClick={handleDrawerClose}>
+            <ListItemIcon><AccountTreeIcon className={classes.linkicons}/></ListItemIcon>
+            <ListItemText>Projects</ListItemText>
           </ListItem></Link>
         
       </List>

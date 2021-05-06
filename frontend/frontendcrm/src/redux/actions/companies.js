@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { tokenConfig } from './auth';
-import { GET_COMPANIES, ADD_COMPANY, OPEN_COMPANY_CREATE_FROM, COMPANY_ID, PUT_COMPANY, OPEN_COMPANY_DETAIL_FROM} from './types';
+import { 
+  GET_COMPANIES, 
+  ADD_COMPANY, 
+  OPEN_COMPANY_CREATE_FROM, 
+  COMPANY_ID, PUT_COMPANY, 
+  OPEN_COMPANY_DETAIL_FROM,
+  DELETE_COMPANY,
+  OPEN_COMPANY_DELETE_FROM,
+} from './types';
 import { returnErrors } from './messages';
 import { API_URL } from '../proxy/proxy'
 import { createMessage } from './messages'
@@ -56,6 +64,25 @@ export const putCompany = (id, company) => (dispatch, getState) => {
     .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
+ // Delete Company
+    
+ export const deleteCompany = (id) => (dispatch, getState) => {
+  
+  axios
+    .delete(`${API_URL}/companies/${id}/`, tokenConfig(getState))
+    .then((res) => {
+      dispatch(createMessage({ deleteCompany: 'Company Deleted' }));
+      dispatch({
+        type: DELETE_COMPANY,
+        payload: res.data,
+      });
+      dispatch(getCompanies(dispatch, getState));
+      dispatch(companyDeleteOpen(false));
+      dispatch(companyDetailOpen(false));
+    })
+    .catch((err) => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
     
 
       
@@ -82,3 +109,11 @@ export const companyDetailOpen = (formstatus) => {
     payload: formstatus,
   };
 };
+
+export const companyDeleteOpen = (deleteopen) => {
+  return {
+    type: OPEN_COMPANY_DELETE_FROM,
+    payload: deleteopen,
+  };
+};
+

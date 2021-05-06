@@ -1,9 +1,11 @@
-import { GET_COMPANIES, OPEN_COMPANY_CREATE_FROM, COMPANY_ID,OPEN_COMPANY_DETAIL_FROM } from '../actions/types';
+import { GET_COMPANIES, OPEN_COMPANY_CREATE_FROM, COMPANY_ID,OPEN_COMPANY_DETAIL_FROM, OPEN_COMPANY_DELETE_FROM } from '../actions/types';
 
 const initialState = {
   companies: [],
   createopen: false,
   detailopen: false,
+  deleteopen: false,
+
 };
 
 export default function (state = initialState, action) {
@@ -30,6 +32,12 @@ export default function (state = initialState, action) {
           ...state,
           detailopen: action.payload,
         };
+
+        case OPEN_COMPANY_DELETE_FROM:
+          return {
+            ...state,
+            deleteopen: action.payload,
+          };  
     default:
       return state;
   }

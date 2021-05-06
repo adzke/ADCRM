@@ -1,8 +1,6 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 
-import PieChart from '../Charts/PieChart'
-import JobsTable from '../Tables/JobsTable'
-import JobsTableCompleted from '../Tables/JobsTableCompleted'
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -68,7 +66,7 @@ function Dashboard() {
 
     
     return (
-        <Fragment className={classes.root}>
+        <div className={classes.root}>
           
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
@@ -106,7 +104,7 @@ function Dashboard() {
 
                     </Grid>
 
-        </Fragment>
+        </div>
     )
 }
 

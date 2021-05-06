@@ -220,7 +220,7 @@ export default function JobsTable(props) {
                         <TableCell align="right">{row.job_value}</TableCell>
                         <TableCell align="right">{row.employee_name}</TableCell>
 
-                        <TableCell align="right" style={{color: "black" }}><span style={{borderRadius: 20, backgroundColor: (row.job_status == "In Progress") ? "#F51400" : (row.job_status == "Completed") ? "#00F56D" : '#F5E600', padding: 15}} >{row.job_status}</span></TableCell>
+                        <TableCell align="right" style={{color: "black" }}><span style={{borderRadius: 20, backgroundColor: (row.job_status == "In Progress") ? "#00F56D" : (row.job_status == "Completed") ? "#F51400" : '#F5E600',fontWeight: 'bold', padding: 12, marginRight: -30,}} >{row.job_status}</span></TableCell>
                         
                         
                         <TableCell align="right"><Button onClick={() => detailViewOpen(row.id)}><EditIcon  className={classes.editicon} /></Button></TableCell>
